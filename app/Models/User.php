@@ -21,7 +21,20 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'bio',
+        'role',
+        'avatar'
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
     /**
      * The attributes that should be hidden for serialization.
