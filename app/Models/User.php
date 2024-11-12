@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Models;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Models\Publication;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -26,6 +27,16 @@ class User extends Authenticatable implements JWTSubject
         'avatar'
     ];
 
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function publications(): HasMany
+    {
+        return $this->hasMany(Publication::class, 'analyst_id');
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -33,7 +44,13 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        // Retourner les informations que tu veux inclure dans le token
+        return [
+            'name' => $this->nom,
+            'role' => $this->role,
+            'email' => $this->email,
+            'created_at' =>  $this->created_at
+        ];
     }
 
     /**
