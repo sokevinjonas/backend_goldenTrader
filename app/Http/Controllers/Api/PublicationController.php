@@ -10,6 +10,27 @@ use Illuminate\Support\Facades\Storage;
 
 class PublicationController extends Controller
 {
+    public function index()
+    {
+         // Récupère l'utilisateur connecté
+        $currentUserId = auth()->user()->id;
+         // Récupère toutes les publications avec les informations de suivi
+         $publications = Publication::with('user')->get()->map(function ($publication) use ($currentUserId) {
+            $publication->isFollowed = $publication->user->isFollowedBy($currentUserId);
+            return $publication;
+        });
+
+        return response()->json([
+            'message' => 'Liste des publications dans la fil d\'actualité',
+            'data' => $publications,
+        ], 201);
+
+        return response()->json([
+            'message' => 'Liste des publications dans la fil d\'actualité',
+            'data' => $data,
+        ], 201);
+
+    }
     //
     public function store(Request $request)
     {

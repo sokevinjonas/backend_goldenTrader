@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\PublicationVote;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Publication extends Model
 {
@@ -12,7 +13,7 @@ class Publication extends Model
     protected $fillable = [
         'content',
         'images',
-        'analyst_id',
+        'analyst_id', //provien de la migration user
     ];
 
 
@@ -23,7 +24,7 @@ class Publication extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'analyst_id');
     }
 
     public function votes()

@@ -7,6 +7,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -36,6 +37,35 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Publication::class, 'analyst_id');
     }
+
+     /**
+     * Les utilisateurs qui suivent cet utilisateur.
+     */
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
+    }
+
+    /**
+     * Les utilisateurs que cet utilisateur suit.
+     */
+    public function followings(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
+    }
+    // Ces méthodes isFollowing et isFollowedBy
+    // peuvent être utilisées pour vérifier si
+    // un utilisateur suit un autre utilisateur ou est suivi par un autre.
+    public function isFollowing($userId): bool
+    {
+        return $this->followings()->where('followed_id', $userId)->exists();
+    }
+
+    public function isFollowedBy($userId): bool
+    {
+        return $this->followers()->where('follower_id', $userId)->exists();
+    }
+    //
 
     public function getJWTIdentifier()
     {
