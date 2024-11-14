@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Publication;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -79,4 +80,29 @@ class PublicationController extends Controller
             'publication' => $publication,
         ], 201);
     }
+    // public function show(Publication $publication)
+    // {
+
+    // }
+
+    public function getUserPublications($userId)
+    {
+        // Récupère l'utilisateur avec ses publications associées
+        $user = User::with('publications')->find($userId);
+
+        // Vérifie si l'utilisateur existe
+        if (!$user) {
+            return response()->json([
+                'message' => 'Utilisateur non trouvé',
+            ], 404);
+        }
+        return response()->json([
+            'message' => 'Publications de l\'utilisateur',
+            'data' => [
+                'user' => $user,
+                'publications' => $user->publications,
+            ],
+        ], 200);
+    }
+
 }

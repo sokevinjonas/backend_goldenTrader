@@ -5,6 +5,7 @@ use App\Models\Publication;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -37,6 +38,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Publication::class, 'analyst_id');
     }
+
 
      /**
      * Les utilisateurs qui suivent cet utilisateur.

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Follow;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -35,5 +36,22 @@ class FollowController extends Controller
         $user->followings()->detach($id);
 
         return response()->json(['message' => 'Vous avez arrêté de suivre cet utilisateur.']);
+    }
+
+    public function checkFollowStatusAndList()
+    {
+        $followerId = auth()->user()->id;
+
+        $isFollowed = Follow::where('follower_id', $followerId)->exists(); // Vérifie si l'utilisateur suit quelqu'un
+
+        $followedUsers = auth()->user()->followings;
+
+        return response()->json([
+            'message' => 'Vérification du suivi',
+            'data' => [
+                'isFollowed' => $isFollowed,
+                'followedUsers' => $followedUsers,  // Liste des utilisateurs suivis
+            ]
+        ], 200);
     }
 }
