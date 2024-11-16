@@ -18,6 +18,7 @@ class Authentification extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'role' => 'required|string'
         ],
         [
             'name.required' => 'Le champ nom est requis.',
@@ -33,6 +34,7 @@ class Authentification extends Controller
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
+            'role' => $request->get('role'),
             'password' => Hash::make($request->get('password')),
         ]);
 

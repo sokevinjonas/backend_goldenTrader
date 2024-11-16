@@ -16,6 +16,9 @@ class Publication extends Model
         'analyst_id', //provien de la migration user
     ];
 
+    protected $casts = [
+        'images' => 'array'
+    ];
 
     /**
      * Get the user that owns the Publication

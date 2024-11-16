@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('bio')->nullable();
+            $table->text('bio')->nullable();
             $table->enum('role', ['investor', 'analyst']);
             $table->string('avatar')->nullable();
             $table->timestamp('email_verified_at')->nullable();
