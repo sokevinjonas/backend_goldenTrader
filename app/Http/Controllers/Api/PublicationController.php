@@ -7,6 +7,7 @@ use Exception;
 use App\Models\User;
 use App\Models\Publication;
 use Illuminate\Http\Request;
+use App\Events\FluxPublications;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -113,6 +114,8 @@ class PublicationController extends Controller
             ]);
 
             // Valider la transaction
+            event(new FluxPublications($publication)); //  diffusez l'événement
+
             DB::commit();
 
             // Retourner la réponse
