@@ -21,7 +21,7 @@ class PublicationController extends Controller
          // Récupère l'utilisateur connecté
         $currentUserId = auth()->user()->id;
          // Récupère toutes les publications avec les informations de suivi
-         $publications = Publication::with('user')->latest('created_at')->get()->map(function ($publication) use ($currentUserId) {
+         $publications = Publication::with('user')->latest('created_at')->take(250)->get()->map(function ($publication) use ($currentUserId) {
             $publication->isFollowed = $publication->user->isFollowedBy($currentUserId);
             return $publication;
         });
