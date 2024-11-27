@@ -2,7 +2,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
       <!-- Dashboard -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="./index.html">
+        <a class="nav-link collapsed" href="{{route('dashboard')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -16,7 +16,7 @@
         </a>
         <ul id="user-nav" class="nav-content collapse">
           <li>
-            <a href="./users-list.html">
+            <a href="{{route('listes_utilisateurs')}}">
               <i class="bi bi-circle"></i><span>Liste des utilisateurs</span>
             </a>
           </li>
@@ -41,7 +41,7 @@
         </a>
         <ul id="publications-nav" class="nav-content collapse">
           <li>
-            <a href="./publications-list.html">
+            <a href="{{route('listes_publications')}}">
               <i class="bi bi-circle"></i><span>Liste</span>
             </a>
           </li>

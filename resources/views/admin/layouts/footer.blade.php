@@ -1,8 +1,8 @@
 <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>InnoTech</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>GoldenTrade</span></strong>. Tout droit réservé
     </div>
     <div class="credits">
-      Designed by <a href="">InnoTech</a>
+      par <a href="">Jonas Dev</a>
     </div>
   </footer>
