@@ -15,10 +15,11 @@ Route::middleware('jwt')->group(function () {
     Route::get('/publication', [PublicationController::class, 'index']);
     Route::post('/publication', [PublicationController::class, 'store']);
     Route::get('publication/{userId}', [PublicationController::class, 'getUserPublications']);
+    Route::get('/search', [PublicationController::class, 'searchQuery']);
 
     Route::post('follow/{id}', [FollowController::class, 'follow']);
     Route::delete('unfollow/{id}', [FollowController::class, 'unfollow']);
-    Route::get('/check-follow', [FollowController::class, 'checkFollowStatusAndList']);
+    Route::get('is-following/{userId}', [FollowController::class, 'isFollowing']);
 
     Route::post('logout', [Authentification::class, 'logout']);
 });

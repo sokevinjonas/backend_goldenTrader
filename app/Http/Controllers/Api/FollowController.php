@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Follow;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class FollowController extends Controller
 {
@@ -38,20 +39,38 @@ class FollowController extends Controller
         return response()->json(['message' => 'Vous avez arrêté de suivre cet utilisateur.']);
     }
 
-    public function checkFollowStatusAndList()
+    // public function checkFollowStatusAndList()
+    // {
+    //     $followerId = auth()->user()->id;
+
+    //     $isFollowed = Follow::where('follower_id', $followerId)->exists(); // Vérifie si l'utilisateur suit quelqu'un
+
+    //     $followedUsers = auth()->user()->followings;
+
+    //     return response()->json([
+    //         'message' => 'Vérification du suivi',
+    //         'data' => [
+    //             'isFollowed' => $isFollowed,
+    //             'followedUsers' => $followedUsers,  // Liste des utilisateurs suivis
+    //         ]
+    //     ], 200);
+    // }
+    public function isFollowing($userId)
     {
-        $followerId = auth()->user()->id;
+        // Récupérer l'utilisateur connecté
+        $currentUser = Auth::user();
 
-        $isFollowed = Follow::where('follower_id', $followerId)->exists(); // Vérifie si l'utilisateur suit quelqu'un
-
-        $followedUsers = auth()->user()->followings;
+        // Vérifier s'il suit l'utilisateur avec l'ID $userId
+        if ($currentUser->isFollowing($userId)) {
+            return response()->json([
+                'status' => true,
+                'message' => "Vous suivez cet utilisateur."
+            ]);
+        }
 
         return response()->json([
-            'message' => 'Vérification du suivi',
-            'data' => [
-                'isFollowed' => $isFollowed,
-                'followedUsers' => $followedUsers,  // Liste des utilisateurs suivis
-            ]
-        ], 200);
+            'status' => false,
+            'message' => "Vous ne suivez pas cet utilisateur."
+        ]);
     }
 }

@@ -78,6 +78,7 @@ class User extends Authenticatable implements JWTSubject
     {
         // Retourner les informations que tu veux inclure dans le token
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'role' => $this->role,
             'email' => $this->email,

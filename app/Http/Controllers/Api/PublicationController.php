@@ -21,7 +21,7 @@ class PublicationController extends Controller
          // Récupère l'utilisateur connecté
         $currentUserId = auth()->user()->id;
          // Récupère toutes les publications avec les informations de suivi
-         $publications = Publication::with('user')->get()->map(function ($publication) use ($currentUserId) {
+         $publications = Publication::with('user')->latest('created_at')->get()->map(function ($publication) use ($currentUserId) {
             $publication->isFollowed = $publication->user->isFollowedBy($currentUserId);
             return $publication;
         });
@@ -179,5 +179,26 @@ class PublicationController extends Controller
             ],
         ], 200);
     }
+
+    //mehtode pour rechercher un post ou un user dont le role est analyst sachant que dans le model Publication jai la relation avec User
+    public function searchQuery(Request $request)
+    {
+        $query = $request->query('query'); // Récupère le paramètre 'query'
+        // Rechercher les publications par contenu ou par utilisateur ayant le rôle 'analyst'
+        $data = Publication::with('user') // Charger la relation avec le modèle User
+        ->latest('created_at')
+        ->where('content', 'LIKE', "%{$query}%") // Recherche dans le contenu
+        ->orWhereHas('user', function ($q) use ($query) {
+            $q->where('name', 'LIKE', "%{$query}%") // Recherche par nom d'utilisateur
+            ->where('role', 'analyst'); // Filtre par le rôle 'analyst'
+        })
+        ->get();
+        // Retourner les résultats
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+        ]);
+    }
+
 
 }
