@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->enum('role', ['investor', 'analyst']);
             $table->string('avatar')->nullable();
+            $table->boolean('first_connexion')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

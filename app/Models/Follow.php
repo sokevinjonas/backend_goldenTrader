@@ -11,5 +11,5 @@ class Follow extends Model
         'followed_id',
     ];
 
-    
+    public $timestamps = true;
 }
