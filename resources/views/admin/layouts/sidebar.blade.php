@@ -2,7 +2,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
       <!-- Dashboard -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('dashboard')}}">
+        <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : 'collapsed' }}" href="{{ route('dashboard') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -10,13 +10,13 @@
 
       <!-- Utilisateurs -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed {{ request()->routeIs('listes_utilisateurs') ? '' : 'collapsed' }}" data-bs-toggle="collapse" href="#user-nav">
           <i class="bi bi-people"></i><span>Utilisateurs</span>
           <i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="user-nav" class="nav-content collapse">
+        <ul id="user-nav" class="nav-content collapse {{ request()->routeIs('listes_utilisateurs') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{route('listes_utilisateurs')}}">
+            <a href="{{ route('listes_utilisateurs') }}">
               <i class="bi bi-circle"></i><span>Liste des utilisateurs</span>
             </a>
           </li>
@@ -35,13 +35,13 @@
 
       <!-- Publications -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#publications-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed {{ request()->routeIs('listes_publications') ? '' : 'collapsed' }}" data-bs-toggle="collapse" href="#publications-nav">
           <i class="bi bi-layout-text-window-reverse"></i><span>Publications</span>
           <i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="publications-nav" class="nav-content collapse">
+        <ul id="publications-nav" class="nav-content collapse {{ request()->routeIs('listes_publications') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{route('listes_publications')}}">
+            <a href="{{ route('listes_publications') }}">
               <i class="bi bi-circle"></i><span>Liste</span>
             </a>
           </li>
@@ -55,13 +55,13 @@
 
       <!-- Abonnements -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#subscriptions-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed {{ request()->routeIs('abonnement') ? '' : 'collapsed' }}" data-bs-toggle="collapse" href="#subscriptions-nav">
           <i class="bi bi-currency-exchange"></i><span>Abonnements</span>
           <i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="subscriptions-nav" class="nav-content collapse">
+        <ul id="subscriptions-nav" class="nav-content collapse {{ request()->routeIs('abonnement') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="./subscriptions-plans.html">
+            <a href="{{ route('abonnement') }}">
               <i class="bi bi-circle"></i><span>Plans d'abonnement</span>
             </a>
           </li>
@@ -75,11 +75,11 @@
 
       <!-- Parrainages -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#referral-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-toggle="collapse" href="#referral-nav">
           <i class="bi bi-share"></i><span>Parrainage</span>
           <i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="referral-nav" class="nav-content collapse">
+        <ul id="referral-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="./referral-settings.html">
               <i class="bi bi-circle"></i><span>Paramètres</span>
@@ -95,11 +95,11 @@
 
       <!-- Modération -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#moderation-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-toggle="collapse" href="#moderation-nav">
           <i class="bi bi-shield-check"></i><span>Modération</span>
           <i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="moderation-nav" class="nav-content collapse">
+        <ul id="moderation-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="./moderation-reports.html">
               <i class="bi bi-circle"></i><span>Signalements</span>
@@ -132,4 +132,4 @@
         </a>
       </li>
     </ul>
-  </aside>
+</aside>

@@ -3,7 +3,7 @@
 <h1>Tableau de Bord</h1>
         <nav>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="./index.html">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Accueil</a></li>
             <li class="breadcrumb-item">Tableau de Bord</li>
             <li class="breadcrumb-item active">Vue Générale</li>
           </ol>

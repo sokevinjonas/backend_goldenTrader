@@ -3,7 +3,7 @@
 <h1>Liste des Utilisateurs</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="./index.html">Accueil</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Accueil</a></li>
       <li class="breadcrumb-item">Utilisateurs</li>
       <li class="breadcrumb-item active">Liste</li>
     </ol>

@@ -3,7 +3,7 @@
 <h1>Gestion des Abonnements</h1>
 <nav>
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="./index.html">Accueil</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Accueil</a></li>
     <li class="breadcrumb-item">Abonnements</li>
     <li class="breadcrumb-item active">Plans</li>
   </ol>
