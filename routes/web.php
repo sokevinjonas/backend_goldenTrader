@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/utilisateurs-listes', [UtilisateurController::class, 'index'])->name('listes_utilisateurs');
     Route::get('/publications-listes', [PublicationController::class, 'index'])->name('listes_publications');
     Route::get('/abonnement', [AbonnementController::class, 'index'])->name('abonnement');
+    Route::post('/store-abonnement', [AbonnementController::class, 'store'])->name('store_abonnement');
+    Route::delete('/abonnement/{id}', [AbonnementController::class, 'destroy'])->name('delete_abonnement');
+    Route::get('/abonnement/{id}/edit', [AbonnementController::class, 'edit'])->name('edit_abonnement');
 
 });
 

@@ -8,6 +8,11 @@
     <li class="breadcrumb-item active">Plans</li>
   </ol>
 </nav>
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 @endsection
 @section('content')
 <div class="row">
@@ -19,52 +24,60 @@
 
           <!-- Ajouter un plan -->
           <div class="row mb-4">
-            <form id="addPlanForm" class="d-flex gap-3">
-              <input type="text" class="form-control" placeholder="Nom du plan" id="planName">
-              <input type="number" class="form-control" placeholder="Prix (USD)" id="planPrice">
-              <select class="form-select" id="planDuration">
-                <option value="monthly">Mensuel</option>
-                <option value="semiannual">Semestriel</option>
-                <option value="annual">Annuel</option>
-              </select>
-              <button type="button" class="btn btn-primary" onclick="addPlan()">Ajouter</button>
+            <form method="POST" action="{{ route('store_abonnement') }}" id="addPlanForm" class="d-flex gap-3">
+                @csrf
+                <select class="form-select" id="type" name="type" required>
+                    <option value="">--Choisir--</option>
+                    <option value="premium">Premium</option>
+                    <option value="vip">VIP</option>
+                </select>
+                <input type="number" class="form-control" placeholder="Prix (USD)" id="planPrice" name="price" required>
+                <select class="form-select" id="duration" name="duration" required>
+                    <option value="">--Choisir--</option>
+                    <option value="14">14 jours</option>
+                    <option value="30">30 jours</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
             </form>
-          </div>
+        </div>
 
-          <!-- Table des abonnements -->
-          <table class="table table-hover">
+         <!-- Table des abonnements -->
+        <div class="table-responsive">
+            <table class="table table-hover">
             <thead class="table-light">
-              <tr>
+                <tr>
                 <th>#</th>
                 <th>Nom du Plan</th>
                 <th>Prix</th>
                 <th>Durée</th>
                 <th>Actions</th>
-              </tr>
+                </tr>
             </thead>
-            <tbody id="plansTableBody">
-              <tr>
-                <td>1</td>
-                <td>Standard</td>
-                <td>$10</td>
-                <td>Mensuel</td>
+            <tbody>
+                @forelse ($abonnement as $data)
+                <tr>
+                <td>{{ $data->id }}</td>
+                <td>{{ ucfirst($data->type) }}</td>
+                <td>{{ number_format($data->price, 2) }} USD</td>
+                <td>{{ $data->duration }} jours</td>
                 <td>
-                  <button class="btn btn-sm btn-warning" onclick="editPlan(1)">Modifier</button>
-                  <button class="btn btn-sm btn-danger" onclick="deletePlan(1)">Supprimer</button>
+                    <button class="btn btn-sm btn-warning" disabled>Modifier</button>
+                    <form action="{{ route('delete_abonnement', $data->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('Confirmez-vous la suppression ?')">Supprimer</button>
+                    </form>
                 </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Premium</td>
-                <td>$50</td>
-                <td>Annuel</td>
-                <td>
-                  <button class="btn btn-sm btn-warning" onclick="editPlan(2)">Modifier</button>
-                  <button class="btn btn-sm btn-danger" onclick="deletePlan(2)">Supprimer</button>
-                </td>
-              </tr>
+                </tr>
+                @empty
+                <tr>
+                <td colspan="5" class="text-center">Aucun abonnement trouvé. Veuillez en ajouter.</td>
+                </tr>
+                @endforelse
             </tbody>
-          </table>
+            </table>
+        </div>
+
 
         </div>
       </div>

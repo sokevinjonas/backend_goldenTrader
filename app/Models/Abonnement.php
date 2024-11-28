@@ -11,8 +11,7 @@ class Abonnement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'libelle',
-        'prix',
+        'price',
         'type',
         'duration',
         'admin_id',

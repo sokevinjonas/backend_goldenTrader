@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('abonnements', function (Blueprint $table) {
             $table->id();
-            $table->string("libelle");
-            $table->decimal("prix");
             $table->enum('type', ['premium', 'vip']); // Type d'abonnement
             $table->enum('duration', ['14', '30']); // Durée de l'abonnement
             $table->decimal('price', 10, 2); // Montant payé pour l'abonnement
