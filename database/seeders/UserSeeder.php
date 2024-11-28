@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
          $names = array_merge($names, $names, $names, $names, $names); // Répéter la liste
 
          // Générer 1000 utilisateurs avec une répartition de rôles
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $name = $faker->randomElement($names);
             $email = strtolower(str_replace(' ', '', $name)) . $i . '@gmail.com'; // Ajouter $i pour rendre l'email unique
 

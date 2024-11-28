@@ -87,7 +87,7 @@ class PublicationSeeder extends Seeder
         ];
 
         // Création de 300 publications
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             // Choisir un utilisateur Analyste aléatoire
             $analyst = User::where('role', 'analyst')->inRandomOrder()->first();
 

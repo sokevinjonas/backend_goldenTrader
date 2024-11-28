@@ -67,7 +67,21 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->followers()->where('follower_id', $userId)->exists();
     }
-    //
+    /**
+     * Relation avec AbonnementActif (un utilisateur peut avoir plusieurs abonnements actifs)
+     */
+    public function abonnementsActifs()
+    {
+        return $this->hasMany(AbonnementActif::class);
+    }
+
+    /**
+     * Relation avec Abonnement (si l'utilisateur est admin, il peut avoir créé plusieurs abonnements)
+     */
+    public function abonnementsCrees()
+    {
+        return $this->hasMany(Abonnement::class, 'admin_id');
+    }
 
     public function getJWTIdentifier()
     {
