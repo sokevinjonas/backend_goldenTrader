@@ -75,13 +75,13 @@
 
       <!-- Parrainages -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-toggle="collapse" href="#referral-nav">
+        <a class="nav-link collapsed {{ request()->routeIs('parrainage') ? '' : 'collapsed' }}" data-bs-toggle="collapse" href="#referral-nav">
           <i class="bi bi-share"></i><span>Parrainage</span>
           <i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="referral-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <ul id="referral-nav" class="nav-content collapse {{ request()->routeIs('parrainage') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="./referral-settings.html">
+            <a href="{{route('parrainage')}}">
               <i class="bi bi-circle"></i><span>Paramètres</span>
             </a>
           </li>
